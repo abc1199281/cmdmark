@@ -1,0 +1,7 @@
+commands:
+  check_disk:
+    command: "df -h"
+    description: "Check disk space usage"
+  disk_usage:
+    command: "du -sh ~"
+    description: "Show disk usage of home directory"

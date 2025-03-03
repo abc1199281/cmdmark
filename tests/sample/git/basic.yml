@@ -1,0 +1,22 @@
+commands:
+  status:
+    command: "git status"
+    description: "Show the working tree status"
+  add_all:
+    command: "git add ."
+    description: "Add all changes to staging"
+  commit:
+    command: "git commit -m"
+    description: "Commit changes (requires message)"
+  push:
+    command: "git push"
+    description: "Push changes to remote"
+  pull:
+    command: "git pull"
+    description: "Pull changes from remote"
+  log:
+    command: "git log --oneline --graph --decorate"
+    description: "Show commit log (oneline, graph, decorate)"
+  branch:
+    command: "git branch"
+    description: "List branches"

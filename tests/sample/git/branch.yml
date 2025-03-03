@@ -1,0 +1,31 @@
+commands:
+  stash:
+    command: "git stash"
+    description: "Stash changes"
+  stash_pop:
+    command: "git stash pop"
+    description: "Apply and remove the latest stash"
+  stash_list:
+    command: "git stash list"
+    description: "List stashed changes"
+  stash_apply:
+      command: "git stash apply"
+      description: "Apply the latest stash (keep in the stash list)"
+  diff:
+    command: "git diff"
+    description: "Show changes between working directory and staging"
+  diff_staged:
+    command: "git diff --staged"
+    description: "Show changes between staging and HEAD"
+  reset_hard:
+    command: "git reset --hard"
+    description: "Discard all changes (CAUTION)"
+  reset_soft:
+      command: "git reset --soft"
+      description: "Uncommit, but keeping change in staged (requires HEAD~<number>)"
+  cherry_pick:
+    command: "git cherry-pick"
+    description: "Apply a specific commit (requires commit hash)"
+  show:
+      command: "git show"
+      description: "show a specific commit (requires commit hash)"

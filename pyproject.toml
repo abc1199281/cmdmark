@@ -7,7 +7,7 @@ authors = [
 ]
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = ["pyyaml (>=6.0.2,<7.0.0)"]
 
 [tool.poetry.scripts]
 cmdmark = "cmdmark.main:main"
