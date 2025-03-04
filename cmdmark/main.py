@@ -3,12 +3,14 @@ import yaml
 
 CONFIG_DIR = os.path.expanduser("~/.command_bookmarks")
 
+
 def list_items(path):
     """List folders and YAML files."""
     items = sorted(os.listdir(path))
     for idx, item in enumerate(items, 1):
         print(f"{idx}. {item}")
     return items
+
 
 def list_commands(data):
     """List available commands from a parsed 2YAML file."""
@@ -25,8 +27,9 @@ def list_commands(data):
             print(f"{idx}. {alias}:{cmd} ({description})")
             commands.append(cmd)
         else:
-            print(f"Invalid command format for {cmd}") #Handles invalid format
+            print(f"Invalid command format for {cmd}")  # Handles invalid format
     return commands
+
 
 def select_item(items):
     """Prompt user to select an item by number."""
@@ -39,10 +42,12 @@ def select_item(items):
             pass
         print("Invalid choice. Try again.")
 
+
 def load_yaml(filepath):
     """Load commands from a YAML file."""
     with open(filepath, "r") as f:
         return yaml.safe_load(f)
+
 
 def main():
     if not os.path.exists(CONFIG_DIR):
@@ -74,6 +79,7 @@ def main():
 
     print(f"\nExecuting: {command}\n")
     os.system(command)
+
 
 if __name__ == "__main__":
     main()

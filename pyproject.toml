@@ -7,7 +7,7 @@ authors = [
 ]
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["pyyaml (>=6.0.2,<7.0.0)"]
+dependencies = ["pyyaml (>=6.0.2,<7.0.0)", "pytest (>=8.3.5,<9.0.0)"]
 
 [tool.poetry.scripts]
 cmdmark = "cmdmark.main:main"
@@ -15,3 +15,7 @@ cmdmark = "cmdmark.main:main"
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
