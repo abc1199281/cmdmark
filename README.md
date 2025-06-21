@@ -8,6 +8,7 @@ A CLI tool for managing commands like bookmarks. This Python script provides a s
 *   **YAML Configuration:** Define commands and their descriptions in easy-to-read YAML files.
 *   **Interactive Selection:** Choose categories, files, and commands interactively from the terminal.
 *   **Direct Execution:** Execute selected commands directly within the script.
+*   **Git-Aware:** Git metadata files (e.g., `.git` folders) are ignored when listing categories and YAML files.
 
 
 ## Setup

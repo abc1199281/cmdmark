@@ -1,6 +1,6 @@
 import pytest
 import yaml
-from cmdmark.main import load_yaml  # Adjust import path as needed
+from cmdmark.main import load_yaml, list_items
 
 
 def test_load_yaml_valid(tmp_path):
@@ -27,3 +27,24 @@ def test_load_yaml_invalid(tmp_path):
 def test_load_yaml_file_not_found():
     with pytest.raises(FileNotFoundError):
         load_yaml("nonexistent_file.yml")
+
+
+def test_list_items_ignores_git(tmp_path):
+    (tmp_path / ".git").mkdir()
+    (tmp_path / ".gitignore").write_text("")
+    (tmp_path / "visible.yml").write_text("")
+    (tmp_path / "dir").mkdir()
+
+    result = list_items(tmp_path)
+    assert ".git" not in result
+    assert ".gitignore" not in result
+    assert sorted(result) == ["dir", "visible.yml"]
+
+
+def test_yaml_listing_skips_git(tmp_path):
+    (tmp_path / ".git").mkdir()
+    (tmp_path / "file.yml").write_text("commands: {}")
+    (tmp_path / "not_yaml.txt").write_text("")
+
+    files = [f for f in list_items(tmp_path) if f.endswith(".yml")]
+    assert files == ["file.yml"]
