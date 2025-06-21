@@ -1,6 +1,7 @@
 import pytest
 import yaml
-from cmdmark.main import load_yaml, list_items
+import sys
+from cmdmark.main import load_yaml, list_items, parse_args, ENV_CONFIG_DIR, DEFAULT_CONFIG_DIR
 
 
 def test_load_yaml_valid(tmp_path):
@@ -48,3 +49,11 @@ def test_yaml_listing_skips_git(tmp_path):
 
     files = [f for f in list_items(tmp_path) if f.endswith(".yml")]
     assert files == ["file.yml"]
+
+
+def test_parse_args_uses_env(monkeypatch):
+    custom = "/tmp/custom_cfg"
+    monkeypatch.setenv(ENV_CONFIG_DIR, custom)
+    monkeypatch.setattr(sys, "argv", ["cmdmark"])
+    args = parse_args()
+    assert args.config_dir == custom
