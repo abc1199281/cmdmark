@@ -23,7 +23,13 @@ A CLI tool for managing commands like bookmarks. This Python script provides a s
     ```
     This will install `cmdmark` and its dependency, `PyYAML`. This project requires Python 3.12 or higher.
 
-2.  **Configuration Directory:** The script uses a configuration directory located at `~/.command_bookmarks`. Make sure that the directory exists. You may create some sub-directories in `~/.command_bookmarks` to categorize your commands, and create yml files to store the relative commands.
+2.  **Configuration Directory:** The script uses a configuration directory located at `~/.command_bookmarks`. Make sure that the directory exists. You may create some sub-directories in `~/.command_bookmarks` to categorize your commands, and create yml files to store the relative commands. You can override this location by setting the environment variable `CMDMARK_CONFIG_DIR`.
+
+    For example, in your shell configuration (e.g. `~/.bashrc` or `~/.zshrc`):
+
+    ```bash
+    export CMDMARK_CONFIG_DIR="$HOME/my_cmdmarks"
+    ```
 
 3.  **YAML Files:** Create YAML files within the configuration directory (or its subdirectories) to define your commands.  The structure of the YAML file is as follows:
 

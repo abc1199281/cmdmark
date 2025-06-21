@@ -4,6 +4,7 @@ import yaml
 from . import __version__
 
 DEFAULT_CONFIG_DIR = os.path.expanduser("~/.command_bookmarks")
+ENV_CONFIG_DIR = "CMDMARK_CONFIG_DIR"
 
 
 IGNORED_PREFIX = ".git"
@@ -68,7 +69,7 @@ def parse_args():
     parser.add_argument(
         "-c",
         "--config-dir",
-        default=DEFAULT_CONFIG_DIR,
+        default=os.environ.get(ENV_CONFIG_DIR, DEFAULT_CONFIG_DIR),
         help="Path to configuration directory (default: %(default)s)",
     )
     return parser.parse_args()
