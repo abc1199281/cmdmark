@@ -64,3 +64,51 @@ A CLI tool for managing commands like bookmarks. This Python script provides a s
 ## Example
 
 Let's say you have the following structure (see tests/samples).
+For example, the directory might look like:
+
+```
+~/.command_bookmarks/
+├── git/
+│   ├── basic.yml
+│   └── branch.yml
+└── sys/
+    └── disk.yml
+```
+
+The files under `tests/sample/` provide ready-made examples you can copy into your configuration directory.
+
+`tests/sample/git/basic.yml` includes common git commands:
+
+```yaml
+commands:
+  status:
+    command: "git status"
+    description: "Show the working tree status"
+  add_all:
+    command: "git add ."
+    description: "Add all changes to staging"
+  commit:
+    command: "git commit -m"
+    description: "Commit changes (requires message)"
+```
+
+`tests/sample/sys/disk.yml` defines a couple of useful system commands:
+
+```yaml
+commands:
+  check_disk:
+    command: "df -h"
+    description: "Check disk space usage"
+  disk_usage:
+    command: "du -sh ~"
+    description: "Show disk usage of home directory"
+```
+
+### Quick demo
+
+```bash
+cp -r tests/sample/* ~/.command_bookmarks/
+cmdmark
+```
+
+Select a category (e.g. `git`), choose a YAML file such as `basic.yml`, and then pick a command like `status`. `cmdmark` will run `git status` right away.
