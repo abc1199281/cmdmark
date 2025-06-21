@@ -4,9 +4,17 @@ import yaml
 CONFIG_DIR = os.path.expanduser("~/.command_bookmarks")
 
 
+IGNORED_PREFIX = ".git"
+
+
 def list_items(path):
-    """List folders and YAML files."""
-    items = sorted(os.listdir(path))
+    """List folders and YAML files while skipping git metadata."""
+    items = [
+        item
+        for item in os.listdir(path)
+        if not item.startswith(IGNORED_PREFIX)
+    ]
+    items = sorted(items)
     for idx, item in enumerate(items, 1):
         print(f"{idx}. {item}")
     return items
