@@ -18,8 +18,12 @@ Homepage = "https://github.com/abc1199281/cmdmark"
 [tool.poetry.scripts]
 cmdmark = "cmdmark.main:main"
 
+
 [tool.poetry.dev-dependencies]
 pytest = ">=8.3.5,<9.0.0"
+
+[project.optional-dependencies]
+test = ["pytest>=8.3.5,<9.0.0"]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
