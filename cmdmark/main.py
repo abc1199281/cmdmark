@@ -13,7 +13,7 @@ def list_items(path):
 
 
 def list_commands(data):
-    """List available commands from a parsed 2YAML file."""
+    """List available commands from a parsed YAML file."""
     if "commands" not in data or not isinstance(data["commands"], dict):
         print("No valid commands found in the YAML file.")
         return []
