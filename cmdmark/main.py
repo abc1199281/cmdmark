@@ -1,6 +1,7 @@
 import argparse
 import os
 import yaml
+from . import __version__
 
 DEFAULT_CONFIG_DIR = os.path.expanduser("~/.command_bookmarks")
 
@@ -57,6 +58,12 @@ def parse_args():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(
         description="Manage command bookmarks stored in YAML files."
+    )
+    parser.add_argument(
+        "-V",
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
     )
     parser.add_argument(
         "-c",
