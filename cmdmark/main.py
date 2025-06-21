@@ -19,15 +19,14 @@ def list_commands(data):
         return []
 
     commands = []
-    print(f"id. [alias]:cmd (short description)")
+    print("id. command")
     for idx, (alias, cmd_data) in enumerate(data["commands"].items(), 1):
         if isinstance(cmd_data, dict) and "command" in cmd_data:
-            description = cmd_data.get("description", "No description")
-            cmd = cmd_data.get("command")
-            print(f"{idx}. {alias}:{cmd} ({description})")
+            cmd = cmd_data["command"]
+            print(f"{idx}. {cmd}")
             commands.append(cmd)
         else:
-            print(f"Invalid command format for {cmd}")  # Handles invalid format
+            print(f"Invalid command format for {alias}")
     return commands
 
 
