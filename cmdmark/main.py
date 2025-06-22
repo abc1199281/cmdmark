@@ -19,18 +19,29 @@ def list_items(path):
     return items
 
 
-def list_commands(data):
-    """List available commands from a parsed YAML file."""
+def list_commands(data, verbose: bool = False):
+    """List available commands from a parsed YAML file.
+
+    When ``verbose`` is ``True``, each command's description is printed
+    alongside the command itself.
+    """
     if "commands" not in data or not isinstance(data["commands"], dict):
         print("No valid commands found in the YAML file.")
         return []
 
     commands = []
-    print("id. command")
+    header = "id. command"
+    if verbose:
+        header += " - description"
+    print(header)
     for idx, (alias, cmd_data) in enumerate(data["commands"].items(), 1):
         if isinstance(cmd_data, dict) and "command" in cmd_data:
             cmd = cmd_data["command"]
-            print(f"{idx}. {cmd}")
+            if verbose and "description" in cmd_data:
+                desc = cmd_data["description"]
+                print(f"{idx}. {cmd} - {desc}")
+            else:
+                print(f"{idx}. {cmd}")
             commands.append(cmd)
         else:
             print(f"Invalid command format for {alias}")
@@ -55,7 +66,7 @@ def load_yaml(filepath):
         return yaml.safe_load(f)
 
 
-def parse_args():
+def parse_args(argv: list[str] | None = None):
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(
         description="Manage command bookmarks stored in YAML files."
@@ -72,7 +83,13 @@ def parse_args():
         default=os.environ.get(ENV_CONFIG_DIR, DEFAULT_CONFIG_DIR),
         help="Path to configuration directory (default: %(default)s)",
     )
-    return parser.parse_args()
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Enable verbose output",
+    )
+    return parser.parse_args(argv)
 
 
 def main() -> None:
@@ -97,13 +114,14 @@ def main() -> None:
     selected_file = select_item(files)
     file_path = os.path.join(category_path, selected_file)
 
+
     print(f"\n=== {selected_file} Commands ===")
     data = load_yaml(file_path)
     if "commands" not in data:
         print("Invalid YAML format.")
         return
 
-    command_keys = list_commands(data)
+    command_keys = list_commands(data, verbose=args.verbose)
     command = select_item(command_keys)
 
     print(f"\nExecuting: {command}\n")

@@ -9,6 +9,7 @@ A CLI tool for managing commands like bookmarks. This Python script provides a s
 *   **Interactive Selection:** Choose categories, files, and commands interactively from the terminal.
 *   **Direct Execution:** Execute selected commands directly within the script.
 *   **Git-Aware:** Git metadata files (e.g., `.git` folders) are ignored when listing categories and YAML files.
+*   **Verbose Mode:** Pass `-v` to show each command's description when listing commands.
 
 
 ## Setup
@@ -55,6 +56,7 @@ A CLI tool for managing commands like bookmarks. This Python script provides a s
     ```bash
     cmdmark
     ```
+    Use `-v` or `--verbose` to also show each command's description when listing commands.
 
 2.  **Interactive Navigation:**
 
@@ -62,7 +64,7 @@ A CLI tool for managing commands like bookmarks. This Python script provides a s
     *   Select a category by entering its number.
     *   The script will then list the YAML files within the selected category.
     *   Select a YAML file by entering its number.
-    *   Finally, the script will list the commands defined in the selected YAML file, displaying the alias, the full command and short description.
+    *   Finally, the script will list the commands defined in the selected YAML file. When `-v` is used, each command's description is shown alongside the command itself.
     *   Select a command by entering its number.
 
 3.  **Command Execution:** The selected command will be executed in your terminal.
