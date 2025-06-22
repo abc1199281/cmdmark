@@ -1,7 +1,16 @@
 import pytest
 import yaml
 import sys
-from cmdmark.main import load_yaml, list_items, parse_args, list_commands, ENV_CONFIG_DIR, DEFAULT_CONFIG_DIR
+import subprocess
+from cmdmark.main import (
+    load_yaml,
+    list_items,
+    parse_args,
+    list_commands,
+    ENV_CONFIG_DIR,
+    DEFAULT_CONFIG_DIR,
+    run_command,
+)
 
 
 def test_load_yaml_valid(tmp_path):
@@ -49,3 +58,14 @@ def test_yaml_listing_skips_git(tmp_path):
 
     files = [f for f in list_items(tmp_path) if f.endswith(".yml")]
     assert files == ["file.yml"]
+
+
+def test_run_command_failure():
+    with pytest.raises(subprocess.CalledProcessError):
+        run_command("false")
+
+
+def test_run_command_success(capsys):
+    run_command("echo hello")
+    captured = capsys.readouterr()
+    assert "Command failed" not in captured.out

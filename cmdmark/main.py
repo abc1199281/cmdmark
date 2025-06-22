@@ -1,5 +1,6 @@
 import argparse
 import os
+import subprocess
 import yaml
 from . import __version__
 
@@ -92,6 +93,26 @@ def parse_args(argv: list[str] | None = None):
     return parser.parse_args(argv)
 
 
+def run_command(command: str) -> None:
+    """Execute the given command with ``subprocess.run``.
+
+    Parameters
+    ----------
+    command:
+        Command string to execute.
+
+    Raises
+    ------
+    subprocess.CalledProcessError
+        If the command exits with a non-zero status.
+    """
+    try:
+        subprocess.run(command, shell=True, check=True)
+    except subprocess.CalledProcessError as exc:
+        print(f"Command failed with exit code {exc.returncode}")
+        raise
+
+
 def main() -> None:
     args = parse_args()
     config_dir = os.path.expanduser(args.config_dir)
@@ -114,7 +135,6 @@ def main() -> None:
     selected_file = select_item(files)
     file_path = os.path.join(category_path, selected_file)
 
-
     print(f"\n=== {selected_file} Commands ===")
     data = load_yaml(file_path)
     if "commands" not in data:
@@ -125,7 +145,7 @@ def main() -> None:
     command = select_item(command_keys)
 
     print(f"\nExecuting: {command}\n")
-    os.system(command)
+    run_command(command)
 
 
 if __name__ == "__main__":
