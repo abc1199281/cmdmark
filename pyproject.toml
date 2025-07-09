@@ -19,7 +19,7 @@ Homepage = "https://github.com/abc1199281/cmdmark"
 cmdmark = "cmdmark.main:main"
 
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = ">=8.3.5,<9.0.0"
 
 [project.optional-dependencies]
