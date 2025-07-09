@@ -120,3 +120,19 @@ cmdmark
 ```
 
 Select a category (e.g. `git`), choose a YAML file such as `basic.yml`, and then pick a command like `status`. `cmdmark` will run `git status` right away.
+
+## Docker
+
+The repository includes a `Dockerfile` so you can build a containerized
+environment for running the tests or invoking the CLI.
+
+```bash
+# Build the image
+docker build -t cmdmark .
+
+# Run the test suite
+docker run --rm cmdmark
+
+# Or start the CLI (override the default command)
+docker run --rm -it cmdmark cmdmark
+```
