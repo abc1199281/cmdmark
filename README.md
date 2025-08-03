@@ -136,3 +136,13 @@ docker run --rm cmdmark
 # Or start the CLI (override the default command)
 docker run --rm -it cmdmark cmdmark
 ```
+
+## Development
+
+This repository uses [pre-commit](https://pre-commit.com/) to run code formatting, linting, and type checks.
+Install the git hook scripts and run all checks with:
+
+```bash
+pre-commit install
+pre-commit run --all-files
+```

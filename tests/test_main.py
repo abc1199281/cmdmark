@@ -1,14 +1,9 @@
 import pytest
 import yaml
-import sys
 import subprocess
 from cmdmark.main import (
     load_yaml,
     list_items,
-    parse_args,
-    list_commands,
-    ENV_CONFIG_DIR,
-    DEFAULT_CONFIG_DIR,
     run_command,
 )
 
