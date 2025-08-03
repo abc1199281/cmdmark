@@ -1,7 +1,9 @@
 import argparse
 import os
 import subprocess
+
 import yaml
+
 from . import __version__
 
 DEFAULT_CONFIG_DIR = os.path.expanduser("~/.command_bookmarks")
