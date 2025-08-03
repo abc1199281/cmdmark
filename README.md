@@ -121,6 +121,21 @@ cmdmark
 
 Select a category (e.g. `git`), choose a YAML file such as `basic.yml`, and then pick a command like `status`. `cmdmark` will run `git status` right away.
 
+## Development
+
+This project uses [pre-commit](https://pre-commit.com/) for linting and type checks.
+Install the hooks with:
+
+```bash
+pre-commit install
+```
+
+Run all checks with:
+
+```bash
+pre-commit run --all-files
+```
+
 ## Docker
 
 The repository includes a `Dockerfile` so you can build a containerized
