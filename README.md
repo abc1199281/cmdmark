@@ -136,6 +136,12 @@ Run all checks with:
 pre-commit run --all-files
 ```
 
+Run the test suite with coverage reporting using:
+
+```bash
+pytest --cov=cmdmark
+```
+
 ## Docker
 
 The repository includes a `Dockerfile` so you can build a containerized
