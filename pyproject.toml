@@ -1,6 +1,6 @@
 [project]
 name = "cmdmark"
-version = "0.0.5"
+version = "0.0.6"
 authors = [
     {name = "Po-wei Huang",email = "abc1199281@gmail.com"}
 ]
