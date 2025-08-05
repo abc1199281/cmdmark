@@ -1,0 +1,6 @@
+site_name: cmdmark
+nav:
+  - Home: index.md
+  - Usage: usage.md
+  - Modules: modules.md
+docs_dir: docs
