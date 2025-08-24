@@ -57,6 +57,18 @@ def test_yaml_listing_skips_git(tmp_path):
     assert files == ["file.yml"]
 
 
+def test_list_items_filters_non_yml_files(tmp_path):
+    (tmp_path / "valid.yml").write_text("commands: {}")
+    (tmp_path / "also_valid.yaml").write_text("commands: {}")
+    (tmp_path / "not_yaml.txt").write_text("")
+    (tmp_path / "another.py").write_text("")
+    (tmp_path / "README.md").write_text("")
+    (tmp_path / "subdir").mkdir()
+
+    result = list_items(tmp_path)
+    assert sorted(result) == ["also_valid.yaml", "subdir", "valid.yml"]
+
+
 def test_run_command_failure():
     with pytest.raises(subprocess.CalledProcessError):
         run_command("false")

@@ -15,7 +15,13 @@ IGNORED_PREFIX = ".git"
 
 def list_items(path):
     """List folders and YAML files while skipping git metadata."""
-    items = [item for item in os.listdir(path) if not item.startswith(IGNORED_PREFIX)]
+    items = []
+    for item in os.listdir(path):
+        if item.startswith(IGNORED_PREFIX):
+            continue
+        item_path = os.path.join(path, item)
+        if os.path.isdir(item_path) or item.endswith((".yml", ".yaml")):
+            items.append(item)
     items = sorted(items)
     for idx, item in enumerate(items, 1):
         print(f"{idx}. {item}")
@@ -129,7 +135,11 @@ def main() -> None:
     category_path = os.path.join(config_dir, selected_category)
 
     print(f"\n=== {selected_category} Files ===")
-    files = [f for f in list_items(category_path) if f.endswith(".yml")]
+    files = [
+        f
+        for f in list_items(category_path)
+        if not os.path.isdir(os.path.join(category_path, f))
+    ]
     if not files:
         print("No YAML files found.")
         return
