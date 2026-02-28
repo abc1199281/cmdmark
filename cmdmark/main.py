@@ -1,6 +1,7 @@
 import argparse
 import os
 import subprocess
+from typing import Any
 
 import yaml
 
@@ -13,8 +14,8 @@ ENV_CONFIG_DIR = "CMDMARK_CONFIG_DIR"
 IGNORED_PREFIX = ".git"
 
 
-def list_items(path):
-    """List folders and YAML files while skipping git metadata."""
+def list_items(path: str) -> list[str]:
+    """Return sorted folders and YAML files while skipping git metadata."""
     items = []
     for item in os.listdir(path):
         if item.startswith(IGNORED_PREFIX):
@@ -22,13 +23,16 @@ def list_items(path):
         item_path = os.path.join(path, item)
         if os.path.isdir(item_path) or item.endswith((".yml", ".yaml")):
             items.append(item)
-    items = sorted(items)
+    return sorted(items)
+
+
+def print_items(items: list[str]) -> None:
+    """Display a numbered list of items."""
     for idx, item in enumerate(items, 1):
         print(f"{idx}. {item}")
-    return items
 
 
-def list_commands(data, verbose: bool = False):
+def list_commands(data: dict[str, Any], verbose: bool = False) -> list[str]:
     """List available commands from a parsed YAML file.
 
     When ``verbose`` is ``True``, each command's description is printed
@@ -57,25 +61,32 @@ def list_commands(data, verbose: bool = False):
     return commands
 
 
-def select_item(items):
-    """Prompt user to select an item by number."""
-    while True:
-        try:
-            choice = int(input("Select a number: ")) - 1
-            if 0 <= choice < len(items):
-                return items[choice]
-        except ValueError:
-            pass
-        print("Invalid choice. Try again.")
+def select_item(items: list[str]) -> str | None:
+    """Prompt user to select an item by number.
+
+    Returns ``None`` when the user interrupts with Ctrl+C or EOF.
+    """
+    try:
+        while True:
+            try:
+                choice = int(input("Select a number: ")) - 1
+                if 0 <= choice < len(items):
+                    return items[choice]
+            except ValueError:
+                pass
+            print("Invalid choice. Try again.")
+    except (KeyboardInterrupt, EOFError):
+        print()
+        return None
 
 
-def load_yaml(filepath):
+def load_yaml(filepath: str) -> dict[str, Any]:
     """Load commands from a YAML file."""
     with open(filepath, "r") as f:
         return yaml.safe_load(f)
 
 
-def parse_args(argv: list[str] | None = None):
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(
         description="Manage command bookmarks stored in YAML files."
@@ -131,7 +142,13 @@ def main() -> None:
 
     print("=== Categories ===")
     categories = list_items(config_dir)
+    if not categories:
+        print("No categories found.")
+        return
+    print_items(categories)
     selected_category = select_item(categories)
+    if selected_category is None:
+        return
     category_path = os.path.join(config_dir, selected_category)
 
     print(f"\n=== {selected_category} Files ===")
@@ -143,8 +160,10 @@ def main() -> None:
     if not files:
         print("No YAML files found.")
         return
-
+    print_items(files)
     selected_file = select_item(files)
+    if selected_file is None:
+        return
     file_path = os.path.join(category_path, selected_file)
 
     print(f"\n=== {selected_file} Commands ===")
@@ -154,7 +173,11 @@ def main() -> None:
         return
 
     command_keys = list_commands(data, verbose=args.verbose)
+    if not command_keys:
+        return
     command = select_item(command_keys)
+    if command is None:
+        return
 
     print(f"\nExecuting: {command}\n")
     run_command(command)
