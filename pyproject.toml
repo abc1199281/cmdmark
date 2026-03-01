@@ -7,7 +7,7 @@ authors = [
 description = "A CLI tool for managing commands like bookmarks"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["pyaml (>=25.5.0,<26.0.0)", "pyyaml (>=6.0.2,<7.0.0)"]
+dependencies = ["pyyaml (>=6.0.2,<7.0.0)"]
 
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
@@ -15,7 +15,7 @@ license-files = ["LICEN[CS]E*"]
 [project.urls]
 Homepage = "https://github.com/abc1199281/cmdmark"
 
-[tool.poetry.scripts]
+[project.scripts]
 cmdmark = "cmdmark.main:main"
 
 
