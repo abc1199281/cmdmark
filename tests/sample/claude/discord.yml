@@ -1,0 +1,10 @@
+commands:
+  start_discord:
+    command: "claude --channels plugin:discord@claude-plugins-official"
+    description: "Start Claude with Discord plugin channel"
+  enable_tmux:
+    command: "tmux new -s claude"
+    description: "Enable tmux terminal multiplexer"
+  kill_tmux:
+    command: "tmux kill-session -t claude"
+    description: "Kill the claude tmux session"
